@@ -2,9 +2,10 @@
 
 require 'active_record'
 require 'active_support'
+require 'mongoid'
 
 require 'xpungr/version'
-require 'xpungr/soft_deletable'
+require 'xpungr/model'
 
 module Xpungr
 end
