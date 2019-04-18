@@ -1,6 +1,6 @@
 # Xpungr
 
-Xpungr is a Ruby gem designed to work with Rails and ActiveRecord to provide a way of soft-deleting records. Rather than using the usual method of a nullable deleted_at field, xpungr give you the option of using a boolean flag or archiving the deleted record into a separate database table. Either method should result in better scalability as data and soft-deleted data grows within your application.
+Xpungr is a Ruby gem designed to work with Rails, ActiveRecord, and Mongoid to replace paranoia and soft-delete gems with an archival system which removes the data from your primary database and stores it in a MongoDB collection.
 
 ## Installation
 
@@ -20,7 +20,48 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+First, you need a Mongoid model to house your archived records. This is easily done with a Rails generator, where you specify the name of the model file you want to create.
+
+```
+dave:~xpungr$ rails g xpungr:archive user
+      create  app/models/archived/user.rb
+dave:~xpungr$
+```
+
+Next, you need to include the Xpungr module in your ActiveRecord model:
+
+```ruby
+class User < ActiveRecord::Base
+  include Xpungr::Model
+end
+```
+
+Next, setup archiving using the ```xpunge``` method, which has the following arguments:
+
+* **primary_key:** required; the name of the primary key field of the model
+* **to:** required; defines the name of the Mongoid model which will house your archived records; defaults to 'Archived::<Model Class Name>'
+* **cascade:** optional; if there are records related to this model that should also be archived as well, they can be defined here in a simple hash where the key is the name of the related model in snake case and the value is the foreign key in that model that corresponds with the primary key of this model
+* **block_deletes:** optional; if set to true, will override ActiveRecord methods for deleting and trigger an exception; do not use this in production as it is designed to allow you, in development, to identify and remove uses of traditional deleting vs the new archiving
+
+```ruby
+class User < ActiveRecord::Base
+  include Xpungr::Model
+
+  xpunge to: Archived::User, primary_key: :user_id, block_deletes: true, cascade: { order: :user_id, thing: :user_id, payment: :payee_id }
+end
+```
+And now, when you want to delete or destroy a record, you should call the 'archive!' method instead:
+
+```ruby
+user = User.find 21
+user.archive!
+```
+
+If you want to search and display your archived records, you can fetch them via the associated Mongoid model. To restore from the archive:
+
+```ruby
+User.restore(21)
+```
 
 ## Development
 

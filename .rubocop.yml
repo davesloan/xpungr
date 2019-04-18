@@ -1,5 +1,6 @@
 require:
   - rubocop/cop/internal_affairs
+  - rubocop-performance
   - rubocop-rspec
 
 AllCops:
@@ -8,77 +9,17 @@ AllCops:
     - 'spec/factories/**/*'
     - 'tmp/**/*'
     - 'bin/**/*'
-  TargetRubyVersion: 2.5.3
+  TargetRubyVersion: 2.3.3
+  DisabledByDefault: true
 
-RSpec/InstanceVariable:
-  Enabled: false
-
-RSpec/BeforeAfterAll:
-  Enabled: false
-
-RSpec/MultipleExpectations:
-  Enabled: true
-  Max: 8
-
-RSpec/ExampleLength:
-  Enabled: false
-
-Naming/PredicateName:
-  # Method define macros for dynamically generated method.
-  MethodDefinitionMacros:
-    - define_method
-    - define_singleton_method
-    - def_node_matcher
-    - def_node_search
-
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: consistent_comma
-
-Style/FrozenStringLiteralComment:
-  EnforcedStyle: always
-
-Style/MethodDefParentheses:
+Bundler/DuplicatedGem:
   Enabled: true
 
-Style/SymbolArray:
-  Enabled: false
-
-Style/Documentation:
-  Enabled: false
-
-Style/BracesAroundHashParameters:
-  Enabled: false
-
-Style/RaiseArgs:
-  Enabled: false
-
-Style/MethodCallWithArgsParentheses:
+Bundler/InsecureProtocolSource:
   Enabled: true
-  Exclude:
-    - Gemfile
-    - config.ru
-    - config/**/*
-    - app/views/**/*.jbuilder
-  IgnoreMacros: true
-  IgnoredMethods:
-    - require_relative
-    - namespace
-    - require
-    - raise
-    - render
-    - to
-    - eq
-    - is_a?
-    - puts
 
-Style/FormatStringToken:
-  # Because we parse a lot of source codes from strings. Percent arrays
-  # look like unannotated format string tokens to this cop.
-  Exclude:
-    - spec/**/*
-
-Layout/EndOfLine:
-  EnforcedStyle: lf
+Bundler/OrderedGems:
+  Enabled: true
 
 Layout/ClassStructure:
   Enabled: true
@@ -99,58 +40,379 @@ Layout/ClassStructure:
 Layout/IndentHeredoc:
   EnforcedStyle: powerpack
 
+Layout/DefEndAlignment:
+  Enabled: true
+
+Layout/ElseAlignment:
+  Enabled: true
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
+
+Layout/EmptyLines:
+  Enabled: true
+
+Layout/EndAlignment:
+  Enabled: true
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Layout/LeadingBlankLines:
+  Enabled: true
+
+Layout/Tab:
+  Enabled: true
+
+Layout/TrailingBlankLines:
+  Enabled: true
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*.rb'
 
+Lint/AssignmentInCondition:
+  Enabled: true
+
+Lint/CircularArgumentReference:
+  Enabled: true
+
+Lint/Debugger:
+  Enabled: true
+
+Lint/DeprecatedClassMethods:
+  Enabled: true
+
+Lint/DuplicateCaseCondition:
+  Enabled: true
+
+Lint/DuplicateMethods:
+  Enabled: true
+
+Lint/DuplicatedKey:
+  Enabled: true
+
+Lint/EachWithObjectArgument:
+  Enabled: true
+
+Lint/EmptyExpression:
+  Enabled: true
+
+Lint/EmptyInterpolation:
+  Enabled: true
+
+Lint/EmptyWhen:
+  Enabled: true
+
+Lint/EndInMethod:
+  Enabled: true
+
+Lint/EnsureReturn:
+  Enabled: true
+
+Lint/FloatOutOfRange:
+  Enabled: true
+
+Lint/ImplicitStringConcatenation:
+  Enabled: true
+
+Lint/IneffectiveAccessModifier:
+  Enabled: true
+
 Lint/InterpolationCheck:
   Exclude:
     - 'spec/**/*.rb'
+
+Lint/LiteralAsCondition:
+  Enabled: true
+
+Lint/LiteralInInterpolation:
+  Enabled: true
+
+Lint/MultipleCompare:
+  Enabled: true
+
+Lint/NestedMethodDefinition:
+  Enabled: true
+
+Lint/NestedPercentLiteral:
+  Enabled: true
+
+Lint/NextWithoutAccumulator:
+  Enabled: true
+
+Lint/NonLocalExitFromIterator:
+  Enabled: true
+
+Lint/PercentStringArray:
+  Enabled: true
+
+Lint/PercentSymbolArray:
+  Enabled: true
+
+Lint/RandOne:
+  Enabled: true
+
+Lint/RedundantWithIndex:
+  Enabled: true
+
+Lint/RedundantWithObject:
+  Enabled: true
+
+Lint/SafeNavigationChain:
+  Enabled: true
+
+Lint/SafeNavigationConsistency:
+  Enabled: true
+
+Lint/SafeNavigationWithEmpty:
+  Enabled: true
+
+Lint/ShadowedArgument:
+  Enabled: true
+
+Lint/ShadowedException:
+  Enabled: true
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: true
+
+Lint/StringConversionInInterpolation:
+  Enabled: true
+
+Lint/Syntax:
+  Enabled: true
+
+Lint/ToJSON:
+  Enabled: true
+
+Lint/UnderscorePrefixedVariableName:
+  Enabled: true
+
+Lint/UnifiedInteger:
+  Enabled: true
+
+Lint/UnneededRequireStatement:
+  Enabled: true
+
+Lint/UnneededSplatExpansion:
+  Enabled: true
+
+Lint/UnreachableCode:
+  Enabled: true
+
+Lint/UnusedBlockArgument:
+  Enabled: true
+
+Lint/UnusedMethodArgument:
+  Enabled: true
+
+Lint/UriEscapeUnescape:
+  Enabled: true
 
 Lint/UselessAccessModifier:
   MethodCreatingMethods:
     - 'def_matcher'
     - 'def_node_matcher'
 
-Lint/BooleanSymbol:
-  Enabled: false
+Lint/UselessAssignment:
+  Enabled: true
 
-Lint/RescueException:
-  Enabled: false
+Lint/UselessComparison:
+  Enabled: true
 
-Lint/HandleExceptions:
-  Enabled: false
+Lint/UselessElseWithoutRescue:
+  Enabled: true
 
-Style/RescueStandardError:
-  Enabled: false
+Lint/UselessSetterCall:
+  Enabled: true
 
-RSpec/DescribeClass:
-  Enabled: false
+Naming/ClassAndModuleCamelCase:
+  Enabled: true
 
-Metrics/AbcSize:
-  Enabled: false
+Naming/ConstantName:
+  Enabled: true
 
-Metrics/LineLength:
-  Enabled: false
+Naming/FileName:
+  Enabled: true
 
-Metrics/MethodLength:
-  Enabled: false
+Naming/MemoizedInstanceVariableName:
+  Enabled: true
 
-Metrics/ClassLength:
-  Enabled: false
+Naming/MethodName:
+  Enabled: true
 
-Metrics/BlockLength:
-  Enabled: false
+Naming/PredicateName:
+  MethodDefinitionMacros:
+    - define_method
+    - define_singleton_method
+    - def_node_matcher
+    - def_node_search
 
-Metrics/ModuleLength:
-  Enabled: false
+Naming/VariableName (snake_case):
+  Enabled: true
 
-Performance/Caller:
-  Exclude:
-    - spec/rubocop/cop/performance/caller_spec.rb
+Performance/Casecmp:
+  Enabled: true
+
+Performance/ChainArrayAllocation:
+  Enabled: true
+
+Performance/CompareWithBlock:
+  Enabled: true
+
+Performance/Detect:
+  Enabled: true
+
+Performance/EndWith:
+  Enabled: true
+
+Performance/FlatMap:
+  Enabled: true
+
+Performance/InefficientHashSearch:
+  Enabled: true
+
+Performance/OpenStruct:
+  Enabled: true
+
+Performance/RangeInclude:
+  Enabled: true
+
+Performance/RedundantBlockCall:
+  Enabled: true
+
+Performance/RedundantMatch:
+  Enabled: true
+
+Performance/RedundantMerge:
+  Enabled: true
+
+Performance/RegexpMatch:
+  Enabled: true
+
+Performance/ReverseEach:
+  Enabled: true
+
+Performance/Size:
+  Enabled: true
+
+Performance/StartWith:
+  Enabled: true
+
+Rails/BulkChangeTable:
+  Enabled: true
+
+Rails/CreateTableWithTimestamps:
+  Enabled: true
+
+Rails/DynamicFindBy:
+  Enabled: true
+
+Rails/EnumUniqueness:
+  Enabled: true
+
+Rails/EnvironmentComparison:
+  Enabled: true
+
+Rails/FilePath:
+  Enabled: true
+
+Rails/FindBy:
+  Enabled: true
+
+Rails/FindEach:
+  Enabled: true
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: true
+
+Rails/IgnoredSkipActionFilterOption:
+  Enabled: true
+
+Rails/InverseOf:
+  Enabled: true
+
+Rails/NotNullColumn:
+  Enabled: true
+
+Rails/Output:
+  Enabled: true
+
+Rails/PluralizationGrammar:
+  Enabled: true
+
+Rails/RelativeDateConstant:
+  Enabled: true
+
+Rails/ReversibleMigration:
+  Enabled: true
+
+Rails/SafeNavigation:
+  Enabled: true
+
+RSpec/MultipleExpectations:
+  Enabled: true
+  Max: 8
 
 RSpec/PredicateMatcher:
   EnforcedStyle: explicit
 
 RSpec/NestedGroups:
   Max: 7
+
+Security/JSONLoad:
+  Enabled: true
+
+Security/MarshalLoad:
+  Enabled: true
+
+Security/Open:
+  Enabled: true
+
+Security/YAMLLoad:
+  Enabled: true
+
+Style/FormatStringToken:
+  Exclude:
+    - spec/**/*
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: true
+  Exclude:
+    - Gemfile
+    - config.ru
+    - config/**/*
+    - app/views/**/*.jbuilder
+  IgnoreMacros: true
+  IgnoredMethods:
+    - require_relative
+    - namespace
+    - require
+    - raise
+    - render
+    - to
+    - eq
+    - is_a?
+    - puts
+
+Style/Strip:
+  Enabled: true
+
+Style/RedundantSortBy:
+  Enabled: true
+
+Style/Sample:
+  Enabled: true
+
+Style/UnneededSort:
+  Enabled: true
